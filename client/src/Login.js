@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+import {useStyles, BlueButton} from './themes/style'
 import {
   Grid,
   Box,
@@ -9,11 +10,14 @@ import {
   FormControl,
   TextField,
 } from "@material-ui/core";
+import Photo from './assets/image/bg-img.png'
+import Bubble from './assets/icons/bubble.svg'
 import { login } from "./store/utils/thunkCreators";
 
 const Login = (props) => {
   const history = useHistory();
   const { user, login } = props;
+  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -28,15 +32,24 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+    <Grid container className={classes.root}>
+        <Box className={classes.imageContainer}>
+          <Box className={classes.bubbleContainer}>
+              <img src={Bubble} alt="bubble" className={classes.bubbleSize}/>
+              <Typography  className={classes.sidebarText}>Converse with anyone</Typography>
+              <Typography  className={classes.sidebarText}>with any language</Typography>
+          </Box>
+          <img src={Photo} alt="peråson" className={classes.imgStyle}/>
+      </Box>
+      <Box className={classes.formContainer}>
+        <Grid item className={classes.topContainer}>
+          <Typography style={{color:'#D8D8D8'}} className={classes.registerText}>Don't have an account?</Typography>
+          <Button onClick={() => history.push("/register")} className={[classes.registerText, classes.registerButton]}>Create account</Button>
         </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
+        <form onSubmit={handleLogin} className={classes.formRoot}>
+          <Grid className={classes.bottomContainer}>
+          <Typography className={classes.loginHeaderText}>Welcome Back!</Typography>
+            <Grid >
               <FormControl margin="normal" required>
                 <TextField
                   aria-label="username"
@@ -55,9 +68,11 @@ const Login = (props) => {
               />
             </FormControl>
             <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
+              <Box className={classes.buttonContainer}>
+                <BlueButton type="submit" variant="contained" size="large">
+                  Login
+                </BlueButton>
+              </Box>
             </Grid>
           </Grid>
         </form>

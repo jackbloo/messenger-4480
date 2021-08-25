@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import {useStyles, BlueButton} from './themes/style'
 import {
@@ -13,11 +13,33 @@ import {
 import Photo from './assets/image/bg-img.png'
 import Bubble from './assets/icons/bubble.svg'
 import { login } from "./store/utils/thunkCreators";
+import { register } from "./store/utils/thunkCreators";
 
-const Login = (props) => {
+
+
+const Authentication = (props) => {
   const history = useHistory();
-  const { user, login } = props;
+  const location = useLocation();
   const classes = useStyles();
+  const { user, login, register } = props;
+  const signupPage = '/register' || '/';
+  const currentPath = location?.pathname;
+  const isRegister = currentPath.includes(signupPage)
+
+  const authenticationText = {
+      login:{
+        header:"Welcome Back!",
+        buttonText:"Login",
+        topText:"Don't have an account?",
+        topButton:"Create Account"
+      },
+      register:{
+        header:"Create an Account",
+        buttonText:"Login",
+        topText:"Already Have an account?",
+        topButton:"Login"
+      }
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -25,6 +47,16 @@ const Login = (props) => {
     const password = event.target.password.value;
 
     await login({ username, password });
+  };
+
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const username = event.target.username.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    await register({ username, email, password });
   };
 
   if (user.id) {
@@ -43,12 +75,12 @@ const Login = (props) => {
       </Box>
       <Box className={classes.formContainer}>
         <Grid item className={classes.topContainer}>
-          <Typography style={{color:'#D8D8D8'}} className={classes.registerText}>Don't have an account?</Typography>
-          <Button onClick={() => history.push("/register")} className={[classes.registerText, classes.registerButton]}>Create account</Button>
+          <Typography style={{color:'#D8D8D8'}} className={classes.registerText}>{isRegister ? authenticationText['register'].topText : authenticationText['login'].topText}</Typography>
+          <Button onClick={() => history.push(isRegister ? "/login" : "/register")} className={[classes.registerText, classes.registerButton]}>{isRegister ? authenticationText['register'].topButton : authenticationText['login'].topButton}</Button>
         </Grid>
         <form onSubmit={handleLogin} className={classes.formRoot}>
           <Grid className={classes.bottomContainer}>
-          <Typography className={classes.loginHeaderText}>Welcome Back!</Typography>
+          <Typography className={isRegister ? classes.signupHeaderText : classes.loginHeaderText}>{isRegister ? authenticationText['register'].header : authenticationText['login'].header}</Typography>
             <Grid >
               <FormControl margin="normal" required>
                 <TextField
@@ -59,6 +91,19 @@ const Login = (props) => {
                 />
               </FormControl>
             </Grid>
+            {isRegister ?             
+            <Grid>
+              <FormControl>
+                <TextField
+                  label="E-mail address"
+                  aria-label="e-mail address"
+                  type="email"
+                  name="email"
+                  required
+                  id="standard-required"
+                />
+              </FormControl>
+            </Grid> : null}
             <FormControl margin="normal" required>
               <TextField
                 label="password"
@@ -70,7 +115,7 @@ const Login = (props) => {
             <Grid>
               <Box className={classes.buttonContainer}>
                 <BlueButton type="submit" variant="contained" size="large">
-                  Login
+                {isRegister ? authenticationText['register'].buttonText : authenticationText['login'].buttonText}
                 </BlueButton>
               </Box>
             </Grid>
@@ -92,7 +137,10 @@ const mapDispatchToProps = (dispatch) => {
     login: (credentials) => {
       dispatch(login(credentials));
     },
+    register: (credentials) => {
+        dispatch(register(credentials));
+      },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

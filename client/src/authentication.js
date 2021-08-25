@@ -91,7 +91,7 @@ const Authentication = (props) => {
                 />
               </FormControl>
             </Grid>
-            {isRegister ?             
+            {isRegister &&             
             <Grid>
               <FormControl>
                 <TextField
@@ -103,7 +103,7 @@ const Authentication = (props) => {
                   id="standard-required"
                 />
               </FormControl>
-            </Grid> : null}
+            </Grid>}
             <FormControl margin="normal" required>
               <TextField
                 label="password"

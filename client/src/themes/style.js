@@ -7,18 +7,21 @@ import { theme } from './theme';
 export  const BlueButton = withStyles((theme) => ({
     root: {
       background:theme.palette.primary.main,
-      borderRadius:'3px',
+      borderRadius: '3px',
       width:300,
       fontFamily:'Montserrat, sans-serif',
-      marginTop: 50,
+      marginTop: theme.spacing(6.25),
       [theme.breakpoints.down('md')]:{
         width:100,
-        fontSize:10
       }
     },
     label:{
-      color:'white',
-      padding: 10
+      color :'white',
+      padding: theme.spacing(1.25),
+      fontSize: 20,
+      [theme.breakpoints.down('md')]:{
+        fontSize: 10
+      }
     }
   }))(Button);
   
@@ -58,8 +61,8 @@ export  const BlueButton = withStyles((theme) => ({
       flexDirection:'row',
       justifyContent:'flex-end',
       alignItems:'baseline',
-      padding: '10px',
-      marginTop:'20px',
+      padding: theme.spacing(1.25),
+      marginTop:theme.spacing(2.5),
       [theme.breakpoints.down('md')]:{
         display:'flex',
         flexDirection:'column',
@@ -73,12 +76,12 @@ export  const BlueButton = withStyles((theme) => ({
     },
     // Styling regarding register component
     registerText:{
-      fontSize: 20,
-      marginRight:40,
+      fontSize: theme.typography.fontSize,
+      marginRight:theme.spacing(5),
       [theme.breakpoints.down('md')]:{
-        marginRight:0,
-        fontSize: 10,
-        marginBottom:10
+        marginRight:theme.spacing(0),
+        fontSize: theme.typography.fontSize/2,
+        marginBottom:theme.spacing(1.25)
       }
     },
     registerButton:{
@@ -86,8 +89,8 @@ export  const BlueButton = withStyles((theme) => ({
       borderRadius:'5px',
       background: '#FFFFFF',
       boxShadow:'0px 2px 12px #4A6A95',
-      padding:'10px',
-      width:200,
+      padding:theme.spacing(1.25),
+      width: 200,
       fontFamily:'Montserrat, sans-serif',
       [theme.breakpoints.down('md')]:{
         width: 100,
@@ -95,14 +98,14 @@ export  const BlueButton = withStyles((theme) => ({
     },
     // Styling regarding login component
     loginHeaderText:{
-      fontSize: 50,
+      fontSize: theme.typography.fontSize * 2.5,
       fontWeight: 800,
       [theme.breakpoints.down('md')]:{
-        fontSize: 25
+        fontSize: theme.typography.fontSize * 1.25
       }
     },
     loginFormText:{
-      fontSize: 35
+      fontSize: theme.typography.fontSize * 1.75
     },
     // Styling regarding color that overlay image on sidebar
     bubbleContainer:{
@@ -112,9 +115,9 @@ export  const BlueButton = withStyles((theme) => ({
       top: '0',
       zIndex: 1000,
       backgroundImage: 'linear-gradient(to bottom, rgba(58,141,255,0.85), rgba(134,185,255,0.85))',
-      padding: '5px',
+      padding: theme.spacing(0.625),
       color: '#FFFFFF',
-      fontWeight: 'bold',
+      fontWeight: theme.typography.button.fontWeight,
       display:'flex',
       justifyContent:'center',
       alignItems:'center',
@@ -128,7 +131,7 @@ export  const BlueButton = withStyles((theme) => ({
     bubbleSize:{
       height: 120,
       width: 130,
-      marginBottom: 50,
+      marginBottom: theme.spacing(6.25),
       [theme.breakpoints.down('md')]:{
         height: 70,
         width: 70,
@@ -136,18 +139,18 @@ export  const BlueButton = withStyles((theme) => ({
     },
     // Styling regarding sidebar text
     sidebarText:{
-      fontSize: 40,
-      color:'#FFFFF',
+      fontSize: theme.typography.fontSize * 2,
+      color:theme.palette.light.main,
       textAlign: 'center',
       [theme.breakpoints.down('md')]:{
-        fontSize: 10
+        fontSize: theme.typography.fontSize / 2
       }
     },
     signupHeaderText:{
-        fontSize: 50,
-        color:'#D8D8D8',
+        fontSize: theme.typography.fontSize * 2.5,
+        color: theme.palette.natural.main,
         [theme.breakpoints.down('md')]:{
-          fontSize: 20
+          fontSize: theme.typography.fontSize
         }
     },
     // Customize styling for form by overlay style from material UI
@@ -155,22 +158,22 @@ export  const BlueButton = withStyles((theme) => ({
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
             width: 500,
-            fontSize: 20,
+            fontSize: theme.typography.fontSize,
             [theme.breakpoints.down('md')]:{
-              fontSize: 10,
+              fontSize: theme.typography.fontSize / 2,
               width: 150,
             }
           },
           '& .MuiInputBase-root': {
-            fontSize: 20,
+            fontSize: theme.typography.fontSize,
             [theme.breakpoints.down('md')]:{
-              fontSize: 10,
+              fontSize: theme.typography.fontSize / 2,
             }
           },
           '& .MuiFormLabel-root': {
-            fontSize: 25,
+            fontSize: theme.typography.fontSize * 2.5,
             [theme.breakpoints.down('md')]:{
-              fontSize: 10,
+              fontSize: theme.typography.fontSize / 2,
             }
           },
           '& .MuiInput-underline:before': {

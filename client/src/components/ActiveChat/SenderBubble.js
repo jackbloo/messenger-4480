@@ -24,18 +24,48 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px"
+  },
+  imageStyle:{
+    width:'100%',
+    height:'100%',
+    objectFit:'cover',
+    borderRadius:'10px 10px 10px 0px',
+  },
+  imageContainer:{
+    width:200,
+    height:200
+  },
+  imageContainerMultiple:{
+    width:100,
+    height:100
+  },
+  multipleBoxContainer:{
+    display: 'flex',
+    flexDirection:'row',
+    marginTop:10
   }
 }));
 
 const SenderBubble = (props) => {
   const classes = useStyles();
-  const { time, text } = props;
+  const { time, text, attachments } = props;
   return (
     <Box className={classes.root}>
-      <Typography className={classes.date}>{time}</Typography>
+      {
+        attachments?.length > 1 && text !== '' ?  
       <Box className={classes.bubble}>
         <Typography className={classes.text}>{text}</Typography>
-      </Box>
+      </Box>:null
+      }
+      {attachments?.length > 1 ? <Box className={classes.multipleBoxContainer}>{attachments.map((el) => {return(<Box className={classes.imageContainerMultiple} style={{marginRight:20}}><img src={el} alt={time} className={classes.imageStyle}/></Box>)})}</Box> : null}
+      <Typography className={classes.date}>{time}</Typography>
+      {attachments?.length === 1 ? <Box className={classes.imageContainer}><img src={attachments} alt={time} className={classes.imageStyle}/></Box> : null}
+      {
+        attachments?.length === 1 && text !== '' ?
+      <Box className={classes.bubble}>
+        <Typography className={classes.text}>{text}</Typography>
+      </Box>:null
+      }
     </Box>
   );
 };

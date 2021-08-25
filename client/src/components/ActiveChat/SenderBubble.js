@@ -12,7 +12,8 @@ const useStyles = makeStyles(() => ({
     fontSize: 11,
     color: "#BECCE2",
     fontWeight: "bold",
-    marginBottom: 5
+    marginBottom: 5,
+    marginTop: 5
   },
   text: {
     fontSize: 14,
@@ -33,7 +34,7 @@ const useStyles = makeStyles(() => ({
   },
   imageContainer:{
     width:200,
-    height:200
+    height:200,
   },
   imageContainerMultiple:{
     width:100,
@@ -62,7 +63,7 @@ const SenderBubble = (props) => {
       {attachments?.length === 1 ? <Box className={classes.imageContainer}><img src={attachments} alt={time} className={classes.imageStyle}/></Box> : null}
       {
         attachments?.length === 1 && text !== '' ?
-      <Box className={classes.bubble}>
+      <Box className={classes.bubble} style={{marginBottom:5}}>
         <Typography className={classes.text}>{text}</Typography>
       </Box>:null
       }

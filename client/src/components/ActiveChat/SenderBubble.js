@@ -62,7 +62,7 @@ const SenderBubble = (props) => {
       <Typography className={classes.date}>{time}</Typography>
       {attachments?.length === 1 ? <Box className={classes.imageContainer}><img src={attachments} alt={time} className={classes.imageStyle}/></Box> : null}
       {
-        attachments?.length === 1 && text !== '' ?
+        (attachments?.length === 1 && text !== '') !== (attachments?.length < 1 && text !== '') ?
       <Box className={classes.bubble} style={{marginBottom:5}}>
         <Typography className={classes.text}>{text}</Typography>
       </Box>:null

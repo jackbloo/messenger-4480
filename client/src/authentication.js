@@ -31,13 +31,13 @@ const Authentication = (props) => {
         header:"Welcome Back!",
         buttonText:"Login",
         topText:"Don't have an account?",
-        topButton:"Create Account"
+        topButton:"Login"
       },
       register:{
         header:"Create an Account",
         buttonText:"Login",
         topText:"Already Have an account?",
-        topButton:"Login"
+        topButton:"Create Account"
       }
   }
 
@@ -78,7 +78,7 @@ const Authentication = (props) => {
           <Typography style={{color:'#D8D8D8'}} className={classes.registerText}>{isRegister ? authenticationText['register'].topText : authenticationText['login'].topText}</Typography>
           <Button onClick={() => history.push(isRegister ? "/login" : "/register")} className={[classes.registerText, classes.registerButton]}>{isRegister ? authenticationText['register'].topButton : authenticationText['login'].topButton}</Button>
         </Grid>
-        <form onSubmit={handleLogin} className={classes.formRoot}>
+        <form onSubmit={isRegister ? handleRegister : handleLogin} className={classes.formRoot}>
           <Grid className={classes.bottomContainer}>
           <Typography className={isRegister ? classes.signupHeaderText : classes.loginHeaderText}>{isRegister ? authenticationText['register'].header : authenticationText['login'].header}</Typography>
             <Grid >

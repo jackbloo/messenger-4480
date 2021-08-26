@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "./store/utils/thunkCreators";
-import Signup from "./Signup.js";
-import Login from "./Login.js";
+import Authentication from "./authentication";
 import { Home, SnackbarError } from "./components";
 
 const Routes = (props) => {
@@ -41,12 +40,12 @@ const Routes = (props) => {
         />
       )}
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Signup} />
+        <Route path="/login" component={Authentication} />
+        <Route path="/register" component={Authentication} />
         <Route
           exact
           path="/"
-          render={(props) => (props.user?.id ? <Home /> : <Signup />)}
+          render={(props) => (props.user?.id ? <Home /> : <Authentication />)}
         />
         <Route path="/home" component={Home} />
       </Switch>

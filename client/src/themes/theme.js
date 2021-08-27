@@ -21,6 +21,8 @@ export const theme = createMuiTheme({
     primary: { main: "#3A8DFF" },
     secondary: { main: "#B0B0B0" },
     light: { main:'#FFFFF' },
-    natural: { main:'#D8D8D8' }
+    natural: { main:'#D8D8D8' },
+    icon :{ main: '#D1D9E6'},
+    input:{ main: '#F4F6FA'}
   },
 });

@@ -6,23 +6,23 @@ import { connect } from "react-redux";
 import { postMessage } from "../../store/utils/thunkCreators";
 import { Button } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     justifySelf: "flex-end",
-    marginTop: 15
+    marginTop: theme.spacing(1.875)
   },
   input: {
     height: 70,
-    backgroundColor: "#F4F6FA",
-    borderRadius: 8,
-    marginBottom: 20
+    backgroundColor: theme.palette.input.main,
+    borderRadius: theme.spacing(1),
+    marginBottom: theme.spacing(2.5)
   },
   icon:{
-    fill:'#D1D9E6',
+    fill:theme.palette.icon.main,
     position: 'absolute',
-    right: '10px',
+    right: theme.spacing(1.25),
     top:'20%',
-    fontSize:40
+    fontSize: theme.typography.fontSize * 2
   }
 }));
 
@@ -41,10 +41,8 @@ const Input = (props) => {
     if(event.target.files && event.target.files.length > 0){
       let formData = new FormData();
       const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/upload`;
-      let files = event.target.files;
-      for(let i = 0; i < files.length ; i++){
-        let file = files[i]
-        formData.append("file", file)
+      const promises = [...event.target.files].map(async (image) =>{
+        formData.append("file", image)
         formData.append('upload_preset', `${process.env.REACT_APP_PRESETS_NAME}`);
         const data = await fetch(url,{
          method:'POST',
@@ -52,7 +50,8 @@ const Input = (props) => {
         })
         const responseData = await data.json()
         attachments.push(responseData.url)
-      }
+      })
+      await Promise.all(promises)
     }
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     // preventing empty text to be sent
